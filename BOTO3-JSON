@@ -1,0 +1,62 @@
+The code:
+import json
+import boto3
+ 
+client = boto3.resource('ec2')
+ 
+instance_tag = 'SLS-Demo'
+ 
+def lambda_handler(event, context):
+ 
+    terminate_result = client.instances.filter(
+        Filters=[
+            {
+               
+                
+               
+            },
+        ]
+    ).terminate()
+ 
+    print(terminate_result)
+ 
+    print(f"Terminating Instance...")
+ 
+    return terminate_result;
+ 
+ 
+ 
+ 
+ 
+ 
+Log after shutdown:
+[
+  {
+    "TerminatingInstances": [
+      {
+        "CurrentState": {
+          "Code": 32,
+          "Name": "shutting-down"
+        },
+        "InstanceId": "i-04330c4b885afc4d3",
+        "PreviousState": {
+          "Code": 16,
+          "Name": "running"
+        }
+      }
+    ],
+    "ResponseMetadata": {
+      "RequestId": "cacea1dc-2fee-40b3-ab88-5e4e1a6a7d1d",
+      "HTTPStatusCode": 200,
+      "HTTPHeaders": {
+        "x-amzn-requestid": "cacea1dc-2fee-40b3-ab88-5e4e1a6a7d1d",
+        "content-type": "text/xml;charset=UTF-8",
+        "transfer-encoding": "chunked",
+        "vary": "accept-encoding",
+        "date": "Mon, 16 Nov 2020 02:45:55 GMT",
+        "server": "AmazonEC2"
+      },
+      "RetryAttempts": 0
+    }
+  }
+]
